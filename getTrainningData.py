@@ -44,11 +44,18 @@ while(frame_count < 150):
                 w = int(bboxC.width * iw)
                 h = int(bboxC.height * ih)
                 break
-            
+        
         row_data.append(x)
         row_data.append(y)
         row_data.append(w)
         row_data.append(h)
+        """
+        row_data.append(bboxC.xmin)
+        row_data.append(bboxC.ymin)
+        row_data.append(bboxC.width)
+        row_data.append(bboxC.height)
+        """
+
         frame_count += 1
             
         color = (255,0,0)
