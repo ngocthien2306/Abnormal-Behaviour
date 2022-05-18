@@ -137,10 +137,10 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
-new_training = True
+new_training = False
 clf = None
 if new_training:
-    clf = make_pipeline(StandardScaler(), SVC(C=C,kernel=kernel, gamma=gamma))
+    clf = make_pipeline(SVC(C=C,kernel=kernel, gamma=gamma))
     clf.fit(train_set, train_set_labels)
     store_model(clf, model_name = "SVC")      
 else:
