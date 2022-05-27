@@ -28,8 +28,8 @@ while(frame_count < 150):
         prev = time.time()
    
         # Capture frame-by-frame
-        color = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        results = faceDetection.process(color)
+        image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        results = faceDetection.process(image)
         
         x =0 
         y = 0 
@@ -38,7 +38,7 @@ while(frame_count < 150):
         if results.detections:
             for id, detection in enumerate(results.detections):
                 bboxC = detection.location_data.relative_bounding_box
-                ih, iw, ic = color.shape
+                ih, iw, ic = image.shape
                 x = int(bboxC.xmin * iw)
                 y = int(bboxC.ymin * ih)
                 w = int(bboxC.width * iw)
