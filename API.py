@@ -25,27 +25,65 @@ def insertData(row_data):
         # Close the file object
         f_object.close()
 
-clf = load_model("SVC")
+# clf = load_model("KNN")
+# clf = load_model("LogisticRegression")
+# clf = load_model("SVM")
 
+
+
+def model_runing(name): 
+    model = ""
+    if name == "Suport Vector Machine":
+        model = "SVC"
+        
+    elif  name == "Logistic Regression":
+        model = "LogisticRegression"
+        
+    elif  name == "KNeighbors Classifier":
+        model = "KNN"
+        
+    clf = load_model(model)
+    
+    return clf
+
+#%%
+from datetime import date
+def get_date(): 
+    today = date.today()
+    # dd/mm/YY
+    d1 = today.strftime("%d/%m/%Y")
+    return d1
 
 # In[1]: Start API
 from flask import Flask
 from flask import request
-from datetime import datetime
+
 
 app = Flask(__name__)
 
 @app.route("/student/<id>", methods = ['POST'])
 def postExamData(id):
+    
     jsonData = request.get_json()
     data = jsonData.get('data')
+    fullname = jsonData.get('fullname')
+    phone = jsonData.get('phone')
+    model = jsonData.get('model')
+    
+    clf = model_runing(model)
     result = clf.predict([data])
     print(result[0])
+    
+    
     result = result.tolist()
     result.extend(data)
+    result.append(phone)
+    result.append(fullname)
     result.append(id)
-    result.append(datetime.now())
+    result.append(get_date())
     result.append(request.remote_addr)
+    result.append(model)
+    
     insertData(result)
     return result[0]
 
