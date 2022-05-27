@@ -6,9 +6,12 @@ Created on Wed May 18 09:37:50 2022
 """
 # In[0]: IMPORT AND SETTINGS
 import pandas as pd
+from camera import Camera 
+
 import numpy as np
 from statistics import mean
 import joblib
+
 
 def store_model(model, model_name = ""):
     # NOTE: sklearn.joblib faster than pickle of Python
