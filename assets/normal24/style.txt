@@ -1,0 +1,48 @@
+*{
+	color: #000;
+	border: none;
+}
+#centralwidget{
+	background-color: #eff9fe;
+
+}
+ #frame_11{
+	background-color: #2596be;
+}
+QLineEdit{
+	background: transparent;
+	color: #2596be;
+}
+#searchFrame{
+	border-radius: 10px;
+	border: 2px solid #2596be;
+}
+#appHeader{
+	color: #2596be;
+}
+#card1, #card2, #card3, #card4 {
+	background-color: #fefeff;
+	border-radius: 20px;
+}
+#pushButton, #pushButton_2{
+	background-color: #2596be;
+	color: #fff;
+	border-radius: 10px;
+}
+#widget_4, #widget_5, #profileCont, #frame_15{
+	background-color: #fefeff;
+	border-radius: 20px;
+}
+#headerFrame{
+	background-color: #fefeff;
+}
+#pushButton_3{
+	background-color: #fefeff;
+	padding: 10px 5px;
+	text-align: left;
+	border-top-left-radius: 20px ;
+}
+QPushButton{
+	padding: 10px 5px;
+	text-align: left;
+}

@@ -44,6 +44,8 @@ class MainWindow(QMainWindow):
             # exit the code
             sys.exit()
             
+        self.label_send = QLabel("Sending.... ", self)
+            
         self.status = QStatusBar()
         self.status.setStyleSheet("background : white;")
         self.setStatusBar(self.status)
@@ -148,7 +150,8 @@ class MainWindow(QMainWindow):
   
         # creating a QCameraImageCapture object
         self.capture = QCameraImageCapture(self.camera)
-  
+        
+
         # showing alert if error occur
         self.capture.error.connect(lambda error_msg, error, msg: self.alert(msg))
   
@@ -182,7 +185,7 @@ class MainWindow(QMainWindow):
         self.draw_ui_exam()
         #self.start()
         #self.nextFrameSlot()
-        self.show_camera()
+        #self.show_camera()
         self.show()
         
     def start(self):
@@ -215,6 +218,7 @@ class MainWindow(QMainWindow):
         faceDetection = mp.solutions.face_detection.FaceDetection()
         data = []
         
+        self.show_camera()
         studentId = self.input_mssv.toPlainText()
         fullname = self.input_fname.toPlainText();
         phone = self.input_phone.toPlainText();
@@ -237,16 +241,18 @@ class MainWindow(QMainWindow):
                                                                               'fullname': fullname, 
                                                                               'phone': phone,
                                                                               'model': model})
+            self.label_send.setText("Sending " + str(1) + " times")
             print("sended")
         
         frame_rate = 5
         prev = 0
         frame_count = 0
         
+  
         while(frame_count < 150):
             time_elapsed = time.time() - prev
             ret, frame = cap.read()
-        
+            
             if time_elapsed > 1./frame_rate:
                 prev = time.time()
         
@@ -272,21 +278,25 @@ class MainWindow(QMainWindow):
                 data.append(y)
                 data.append(w)
                 data.append(h)
-                """
-                row_data.append(bboxC.xmin)
-                row_data.append(bboxC.ymin)
-                row_data.append(bboxC.width)
-                row_data.append(bboxC.height)
-                """
-        
                     
                 color = (255,0,0)
                 stroke = 2
                 end_cord_x = x + w
                 end_cord_y = y + h
                 cv2.rectangle(frame, (x,y), (end_cord_x, end_cord_y), color, stroke)
+                
                 # Display the resulting frame
-                cv2.imshow(fullname + " " + studentId,frame)
+                #cv2.imshow(fullname + " " + studentId,frame)
+                # label = QLabel(self)
+                # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                # image = QImage(frame, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
+                # pixmap = QPixmap.fromImage(image)
+                # label.setPixmap(pixmap)
+                # label.setScaledContents(True)
+                # label.setGeometry(20, 370, 460, 250)
+
+                #print(self.capture)
+             
                 frame_count += 1
                 
             if frame_count == 150:
@@ -327,7 +337,11 @@ class MainWindow(QMainWindow):
         label_model = QLabel("Model: ", self)
         label_model.setGeometry(20, 210, 100, 30)
         label_model.setFont(QFont('Roboto', 12))
-           
+          
+        
+        self.label_send.setGeometry(1000, 580, 200, 30)
+        self.label_send.setFont(QFont('Roboto', 12))
+            
    
         
         self.input_fname.setGeometry(130, 90, 350, 30)
@@ -342,12 +356,22 @@ class MainWindow(QMainWindow):
         self.select_model.addItem("Suport Vector Machine")
         self.select_model.addItem("Logistic Regression")
         self.select_model.addItem("KNeighbors Classifier")
-        self.select_model.addItem("Random Model")
+        self.select_model.addItem("Random Forest Classifier")
         self.select_model.setGeometry(130, 210, 350, 30)
         
         btn_start = QPushButton("Do exam", self)
         btn_start.setGeometry(20, 300, 150, 50)
         btn_start.clicked.connect(self.beginTest)
+        
+                
+        btn_open = QPushButton("Open Camera", self)
+        btn_open.setGeometry(330, 300, 150, 50)
+        btn_open.clicked.connect(self.show_camera)
+        
+        
+        btn_train = QPushButton("Training Model", self)
+        btn_train.setGeometry(600, 550, 150, 50)
+        btn_train.clicked.connect(self.train_model)
         
         label = QLabel(self)
         pixmap = QPixmap('image/machine_learning.jpg')
@@ -355,6 +379,20 @@ class MainWindow(QMainWindow):
         label.setScaledContents(True)
         label.setGeometry(20, 370, 460, 250)
                 
+    def train_model(self):
+        import pandas as pd
+        from sklearn.model_selection import train_test_split
+        from Classifier import Classifiers
+        raw_data = pd.read_csv('trainning_data.csv')
+        
+        train_set, test_set = train_test_split(raw_data, test_size=0.2, random_state=42) # set random_state to get the same training set all the time, 
+
+        train_set_labels = train_set["label"].copy()
+        train_set = train_set.drop(columns = "label") 
+        test_set_labels = test_set["label"].copy()
+        test_set = test_set.drop(columns = "label") 
+        
+        #classifiers = Classifiers(train_set, train_set_labels)
         
         
         

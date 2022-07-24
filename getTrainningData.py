@@ -14,7 +14,7 @@ cap = cv2.VideoCapture(0)
 
 faceDetection = mp.solutions.face_detection.FaceDetection()
 
-label = "T" # T: binh thuong, F: bat thuong
+label = "F" # T: binh thuong, F: bat thuong
 row_data = [label]
 
 frame_rate = 5

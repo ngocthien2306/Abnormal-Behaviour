@@ -23,6 +23,7 @@ def insertData(row_data):
         # Pass the data in the list as an argument into the writerow() function
         writer_object.writerow(row_data)  
         # Close the file object
+        print("Insert successfully")
         f_object.close()
 
 # clf = load_model("KNN")
@@ -84,6 +85,7 @@ def postExamData(id):
     result.append(request.remote_addr)
     result.append(model)
     
+    print(result)
     insertData(result)
     return result[0]
 
