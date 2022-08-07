@@ -74,7 +74,7 @@ cap.release()
 cv2.destroyAllWindows()
 
 # write data
-with open('trainning_data.csv', 'a', newline='') as f_object:  
+with open('datas/training_data.csv', 'a', newline='') as f_object:  
     # Pass the CSV  file object to the writer() function
     writer_object = writer(f_object)
     # Result - a writer object

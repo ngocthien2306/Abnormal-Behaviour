@@ -369,9 +369,9 @@ class MainWindow(QMainWindow):
         btn_open.clicked.connect(self.show_camera)
         
         
-        btn_train = QPushButton("Training Model", self)
-        btn_train.setGeometry(600, 550, 150, 50)
-        btn_train.clicked.connect(self.train_model)
+        # btn_train = QPushButton("Training Model", self)
+        # btn_train.setGeometry(600, 550, 150, 50)
+        # btn_train.clicked.connect(self.train_model)
         
         label = QLabel(self)
         pixmap = QPixmap('image/machine_learning.jpg')
@@ -382,8 +382,8 @@ class MainWindow(QMainWindow):
     def train_model(self):
         import pandas as pd
         from sklearn.model_selection import train_test_split
-        from Classifier import Classifiers
-        raw_data = pd.read_csv('trainning_data.csv')
+        from training.Classifier import Classifiers
+        raw_data = pd.read_csv('datas/training_data.csv')
         
         train_set, test_set = train_test_split(raw_data, test_size=0.2, random_state=42) # set random_state to get the same training set all the time, 
 

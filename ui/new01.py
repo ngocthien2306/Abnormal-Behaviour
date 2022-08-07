@@ -631,7 +631,7 @@ class Ui_MainWindow(object):
         self.label_28.setText(_translate("MainWindow", "Thien Nguyen"))
         self.btnProfile.setText(_translate("MainWindow", "My Profile"))
         self.btnLogout.setText(_translate("MainWindow", "Log out"))
-import resources_rc
+import ui.resources.resources_rc as resources_rc
 
 
 if __name__ == "__main__":

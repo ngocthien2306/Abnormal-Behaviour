@@ -6,7 +6,7 @@ Created on Wed May 18 09:37:50 2022
 """
 # In[0]: IMPORT AND SETTINGS
 import pandas as pd
-from camera import Camera 
+
 
 import numpy as np
 from statistics import mean
@@ -26,7 +26,7 @@ def load_model(model_name):
     #print(model)
     return model
 
-raw_data = pd.read_csv('trainning_data.csv')
+raw_data = pd.read_csv('datas/training_data.csv')
 
 # In[1]: DISCOVER THE DATA
 print('\n____________ Dataset info ______________________________')

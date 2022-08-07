@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import joblib
 from sklearn.ensemble import RandomForestClassifier
-from trainning import store_model
+from training.trainning import store_model
 
 class Classifiers(object):
 
@@ -75,17 +75,17 @@ class Classifiers(object):
     def train_with_hyperParamTuning(self,model,name,param_grid):
         #grid search method for hyper-parameter tuning
         grid = GridSearchCV(model, param_grid, cv=10, scoring='accuracy', n_jobs=-1)
-        grid.fit(self.train_data, self.train_labels)
+        history = grid.fit(self.train_data, self.train_labels)
         joblib.dump(grid,'saved_objects/' + name  + '_gridsearch.pkl')
         self.store_model(grid, name)
         
-        self.info_train = '\nThe best hyper-parameter for -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n'\
-            .format(name, grid.best_params_, grid.best_score_)
+        self.info_train = '\nThe best hyper-parameter for -- {} is {}, \nthe corresponding mean accuracy through 10 Fold test is {} \n'\
+            .format(name, grid.best_params_, grid.best_score_.round(2))
         print(self.info_train)
 
         model = grid.best_estimator_
         train_pred = model.predict(self.train_data)
-        self.accuracy = '{} train accuracy = {}\n'.format(name,(train_pred == self.train_labels).mean())
+        self.accuracy = '{} train accuracy = {}\n'.format(name,(train_pred == self.train_labels).mean().round(2))
         print(self.accuracy)
         
        
@@ -94,7 +94,7 @@ class Classifiers(object):
     def prediction_metrics(self,test_data,test_labels,name):
 
         #accuracy
-        self.test_core = '{} test accuracy = {}\n'.format(self.model_name,(self.models[self.model_name].predict(test_data) == test_labels).mean())
+        self.test_core = '{} test accuracy = {}\n'.format(self.model_name,(self.models[self.model_name].predict(test_data) == test_labels).mean().round(2))
         print(self.test_core)
 
         #AUC of ROC

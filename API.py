@@ -16,7 +16,7 @@ def load_model(model_name):
     #print(model)
     return model
 def insertData(row_data):
-    with open('exam_data.csv', 'a', newline='') as f_object:  
+    with open('datas/exam_data.csv', 'a', newline='') as f_object:  
         # Pass the CSV  file object to the writer() function
         writer_object = writer(f_object)
         # Result - a writer object
